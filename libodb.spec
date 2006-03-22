@@ -1,0 +1,45 @@
+# -*- mode: rpm-spec ; mode: font-lock -*-
+# $Id: abook.spec,v 1.2 2005/09/05 13:54:04 mok Exp $
+#----------------------------------
+%define comp xray
+#----------------------------------
+
+Summary: Library to handle O files
+Name: libodb
+Version: @VERSION@
+Release: 1%{?reltag}%{?repotag}
+License: GPL
+Group: Science/Crystallography
+Source:	%name-%version.tar.gz
+URL: http://www.bioxray.dk/~mok
+BuildRoot: %{_tmppath}/%{name}-%{version}-buildroot/
+
+%description
+
+A library to handle O data files, binary or formatted.
+
+%prep
+%setup -q
+
+%build
+%configure
+make
+
+%install
+%makeinstall
+
+%clean
+[ -n "%{buildroot}" -a "%{buildroot}" != / ] && rm -rf -- "%{buildroot}"
+
+%files
+%defattr(-,bin,bin)
+%{_includedir}/odb
+%{_libdir}/libodb.a
+%{_libdir}/libodb.la
+%{_libdir}/libodb.so.0.0.0
+
+%changelog
+* Wed Mar 22 2006 Morten Kjeldgaard <mok@ghost.bioxray.dk> - 1.0
+- First packaged
+
+####
