@@ -2,7 +2,7 @@
 ## $Id: Makefile.am 292 2006-03-17 08:44:58Z mok $
 
 # Build in these directories
-SUBDIRS = src
+SUBDIRS = src testing
 
 ACLOCAL_AMFLAGS = -I config
 

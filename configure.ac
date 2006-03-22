@@ -6,11 +6,13 @@ AC_PREREQ(2.59)
 AC_INIT(libodb, 1.0, mok@bioxray.dk)
 AC_CONFIG_SRCDIR([src/ofile.cpp])
 AC_CONFIG_AUX_DIR([config])
-//AC_CONFIG_HEADER([config.h])
+##AC_CONFIG_HEADER([config.h])
+AM_INIT_AUTOMAKE
 
 # Checks for programs.
 AC_PROG_CXX
 AC_PROG_CC
+AC_PROG_LIBTOOL
 
 # Checks for libraries.
 
@@ -25,7 +27,12 @@ AC_HEADER_STDC
 AC_FUNC_STRTOD
 AC_CHECK_FUNCS([memset strtol])
 
-AC_CONFIG_FILES([src/Makefile])
+AC_CONFIG_FILES([
+	Makefile
+	libodb.spec
+	src/Makefile
+	testing/Makefile
+	])
 AC_OUTPUT
 
 ####

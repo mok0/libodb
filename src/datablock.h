@@ -8,6 +8,11 @@
 #include <vector>
 #include <string>
 
+// Length of parameter block names
+#define ODB_DBNAME_SIZE 26
+
+
+// An O "character" variable is 5 bytes.
 typedef struct ochar {
   char c[6];
 } ochar;
@@ -16,7 +21,7 @@ typedef struct ochar {
 // Datablock base class 
 class ODatablock {
 protected:
-  char _name[26];
+  char _name[ODB_DBNAME_SIZE];
   char _type;
   int _size;
   int _bytes;
@@ -30,7 +35,7 @@ public:
   virtual ~ODatablock(void) {};
 
   virtual void set_name(char * nam) {
-    memcpy (_name, nam, 26);
+    memcpy (_name, nam, ODB_DBNAME_SIZE);
     return;
   };
 

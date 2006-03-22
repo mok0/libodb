@@ -2,9 +2,13 @@
 //   C++ class to deal with an O database (collection of datablocks)
 //   Morten Kjeldgaard, 22-Mar-2003
 
-#include "datablock.h"
 #include <map>
 #include <string>
+
+#include "datablock.h"
+
+#ifndef _odb_h
+#define _odb_h
 
 typedef std::map<std::string, class ODatablock *, std::less<std::string> > maptype;
 
@@ -34,6 +38,8 @@ public:
   ODatablock *fetch(std::string);
 
 };
+
+#endif
 
 // Local variables:
 // mode: c++

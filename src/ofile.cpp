@@ -206,9 +206,8 @@ static void swap4 (char *buffer, int n)
 // In the code below we use a bunch of C string functions. Declare them here...
 
 #include <cstring>
-#define FMTSIZ 64
 
-// Read the datablock header.
+/// Read the datablock header.
 
 bool OFile::get_header(char *nam, char &typ, int &siz, char *fmt) 
 {
@@ -248,7 +247,7 @@ bool OFile::get_header(char *nam, char &typ, int &siz, char *fmt)
 
     memset (buf, 0, sz);
     memset (num, 0, 64);
-    memset (fmt, 0, FMTSIZ);
+    memset (fmt, 0, ODB_FMTSIZ);
     memset (nam, 0, 26);
 
     // Get the first non-comment line.
@@ -292,8 +291,8 @@ bool OFile::get_header(char *nam, char &typ, int &siz, char *fmt)
 }
 
 
-//  Read 'size' integers from the binary fortran file. Swap bytes if
-//  necessary, file is always in big-endian order.
+///  Read 'size' integers from the binary fortran file. Swap bytes if
+///  necessary, file is always in big-endian order.
 
 bool OFile::get_intblock(int *istore, int size) 
 {
@@ -335,8 +334,8 @@ bool OFile::get_intblock(int *istore, int size)
   return true;
 }
 
-//   Read 'size' floats from the binary fortran file. Swap bytes if
-//   necessary, file is always in big-endian order.
+///   Read 'size' floats from the binary fortran file. Swap bytes if
+///   necessary, file is always in big-endian order.
 
 bool OFile::get_realblock(float *rstore, int size) 
 {
@@ -377,7 +376,7 @@ bool OFile::get_realblock(float *rstore, int size)
   return true;
 }
 
-// Read 'size' C6 variables
+/// Read 'size' C6 variables
 
 bool OFile::get_charblock(char *cstore, int size, char *fmt)
 {
@@ -465,9 +464,9 @@ bool OFile::get_charblock(char *cstore, int size, char *fmt)
 }
 
 
-//  Read a text datablock. The definition of the size of a text block
-// is different in binary format, where 'size' is the number of bytes,
-// or formatted, where 'size' is the number of lines...
+///  Read a text datablock. The definition of the size of a text block
+/// is different in binary format, where 'size' is the number of bytes,
+/// or formatted, where 'size' is the number of lines...
 
 bool OFile::get_textblock(char *text, int &size) 
 {
@@ -516,65 +515,4 @@ bool OFile::get_textblock(char *text, int &size)
   return true;
 }
 
-
-
-
-#ifdef TESTING1
-
-#include <cstdlib>
-
-using namespace std;
-
-main ()
-{
-  char nam[26], typ, fmt[FMTSIZ];
-  int siz;
-  int *istore;
-  float *rstore;
-  char *cstore;
-  char *tstore;
-
-  istore = new int [50000*4];
-  rstore = (float *)malloc(150000*4);
-  cstore = (char *)malloc(50000*6);
-  tstore = (char *)malloc(250000);
-
-  nam[25] = '\000';
-
-  //  OFile ofile("binary.o");
-  OFile ofile("startup.odb");
-  while (ofile.get_header(nam, typ, siz, fmt)) {
-    cout << "name=" << nam <<" type=" << typ << " size=" << siz << endl;
-    switch (typ) {
-    case 'I':
-      if (!ofile.get_intblock(istore, siz))
-	cerr << "problems\n";
-      break;
-    case 'R':
-      if (!ofile.get_realblock(rstore, siz))
-	cerr << "problems\n";
-      break;
-    case 'C':
-      if(!ofile.get_charblock(cstore, siz, fmt))
-	cerr << "problems\n";
-      break;
-    case 'T':
-      if(!ofile.get_textblock(tstore, siz))
-	cerr << "problems\n";
-      break;
-    }
-  }
-  cerr << "done.\n";
-
-  ofile.close();
-
-  delete [] istore;
-  free(rstore);
-  free(cstore);
-  free(tstore);
-}
-#endif
-
-// Local variables:
-// compile-command: "g++ -DTESTING1 ofile.cpp"
-// End:
+////

@@ -10,6 +10,9 @@
 #include <string>
 #include <fstream>
 
+#define ODB_FMTSIZ 64
+
+
 class OFile {
 
  private:
