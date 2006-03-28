@@ -75,7 +75,7 @@ void ODatabase::open(std::string path)
     _name = _path.substr(i); 	      // substring from i to eos
   else
     _name = path;
-  cout << "database open: " << _name << endl;
+  //cerr << "database open: " << _name << endl;
 }
 
 // Populate database from O format file
@@ -152,7 +152,7 @@ void ODatabase::get()
 	int nrec = 0;
 
 	tb = new TextBlock(siz);
-	bufsiz = siz*73*sizeof(char);		  // O text blocks have max 73 chars per line
+	bufsiz = siz*73*sizeof(char); // O text blocks have max 73 chars per line
 	s = new char [bufsiz];
 	t = new char [bufsiz];
 	ofile.get_textblock (s, siz);

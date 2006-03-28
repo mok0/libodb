@@ -9,7 +9,6 @@
 #include <iostream>
 
 using std::cerr;
-using std::endl;
 
 /*
   A simple parser for the fortran formats that the type C datablocks
@@ -32,7 +31,6 @@ static char *parse_format(char *fmt)
   char *result, *f, *r, *t;
   int mult = 0;
 
-  //printf ("allocating %d bytes\n",RSIZ);
   result = new char[RSIZ];
   memset (result, 0, RSIZ);
   
@@ -47,8 +45,6 @@ static char *parse_format(char *fmt)
       for (i=0; i < mult; i++)
 	strncat(result, t, RSIZ);
       delete [] t;
-      //printf ("freed %d bytes\n",RSIZ);
-      //printf ("size of result: %d\n",strlen(result));
       return result;
       break;
     case 'x':
@@ -82,10 +78,8 @@ static char *parse_format(char *fmt)
     case '8':
     case '9':
       mult = mult*10+(*f)-'0';
-      //printf ("mult = %d\n", mult);
       break;
     case ')':
-      //printf ("result:%s\n", result);
       return result;
     case ',':
       mult = 0;
@@ -120,7 +114,7 @@ bool OFile::open(std::string path) {
     _binary = false;
     _file.open(_path.c_str(), std::ios::in);
     //_file.open(_path.c_str(), std::ios::in | std::ios::nocreate);
-    cerr << "file is formatted...\n";
+    // cerr << "file is formatted...\n";
   }
 
   if (_file.fail()) return false;
@@ -165,7 +159,7 @@ bool OFile::binfil(void)
   File.open(_path.c_str(), std::ios::in | std::ios::binary);
 
   if (File.fail()) {
-    cerr << "binfil: could not open file" << endl;
+    cerr << "binfil: could not open file\n";
     return false;
   }
 
@@ -225,6 +219,7 @@ bool OFile::get_header(char *nam, char &typ, int &siz, char *fmt)
     if (_file.fail()) return false;
     if (_swap) swap4 ((char *)&rl1, 1);
     _file.read(nam, 25);
+
     // convert datablock name to lower case
     for (n=0; n<25; n++)
       nam[n] = tolower(nam[n]);
@@ -276,7 +271,7 @@ bool OFile::get_header(char *nam, char &typ, int &siz, char *fmt)
       *cp++ = buf[i++];
     siz = (int)strtol(num, &stat, 10);		  // decode size
     if (*stat) {
-      cerr << "error decoding size" << endl;
+      cerr << "error decoding size\n";
       return false;
     }
 
@@ -403,7 +398,7 @@ bool OFile::get_charblock(char *cstore, int size, char *fmt)
 
   } else {
 
-     // Formatted input
+    // Formatted input
     char c, *a, *t, *s;
     int i, eol, inword;
 
@@ -415,14 +410,11 @@ bool OFile::get_charblock(char *cstore, int size, char *fmt)
     eol = 0;
 
     while (i < size) {
-      //fprintf (stderr, "%d ", i);
-
       if (!*s) { // if end of format string, rewind it.
 	s = t;   // and reset everything
 	eol = 0;
 	while (_file.get() != '\n')
 	  ;
-	//fprintf (stderr, "rewind\n");
       }	      
 
       inword = 1;

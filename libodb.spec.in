@@ -26,6 +26,8 @@ A library to handle O data files, binary or formatted.
 make
 
 %install
+rm -rf %{buildroot}
+
 %makeinstall
 
 %clean
@@ -33,7 +35,7 @@ make
 
 %files
 %defattr(-,bin,bin)
-%{_includedir}/odb
+%{_includedir}/odb/
 %{_libdir}/libodb.a
 %{_libdir}/libodb.la
 %{_libdir}/libodb.so.0.0.0

@@ -3,7 +3,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT(libodb, 1.0, mok@bioxray.dk)
+AC_INIT(libodb, 1.0.1, mok@bioxray.dk)
 AC_CONFIG_SRCDIR([src/ofile.cpp])
 AC_CONFIG_AUX_DIR([config])
 ##AC_CONFIG_HEADER([config.h])
