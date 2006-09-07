@@ -1,5 +1,5 @@
 //   -*- mode: c++; mode: font-lock; fill-column: 75; comment-column: 50; -*-
-// $Id$ 
+// $Id: testodb1.cpp 8 2006-09-07 09:35:39Z mok $ 
 //
 
 #include <iostream>
@@ -13,18 +13,15 @@ int main (int argc, char **argv)
   ODatabase X;
   ODatablock *y;
   int n;
-
-  cout << argc << endl;
+  char dbtyp;
 
   if (argc < 2) {
-    cerr << "Usage: " << argv[0] << " odbfile dbname\n";
+    cerr << "Usage: " << argv[0] << " odbfile [dbname]" << endl;
     return 1;
   }
 
-  // X.open("binary.o");
   X.open(string(argv[1]));
   X.get();
-  X.dir();					  // print directory
 
   if (argc == 2) {
     return 0;
@@ -35,47 +32,38 @@ int main (int argc, char **argv)
     cerr << "datablock not found" << endl;
     return 1;
   }
-  cerr << "========================================================\n";
   
   n =  y->size();
-  cerr << "size of datablock: " << n << endl;
-  cerr << "... in bytes: " << sizeof (*y) << endl;
+  dbtyp = y->get_type();
 
-  switch (y->get_type()) {
+  switch (dbtyp) {
   case 'I': 
     {
       std::vector<int> cv;
       IntBlock *z = (IntBlock *)y;
-      cv = z->fetch_data();
-      for (int i=0; i < n; i++) 
-	cerr << cv[i] << endl;
+      z->write();
     }
     break;
   case 'R': 
     {
       std::vector<float> cv;
       RealBlock *z = (RealBlock *)y;
-      cv = z->fetch_data();
-      for (int i=0; i < n; i++) 
-	cerr << cv[i] << endl;
+      z->write();
     }
     break;
   case 'C': 
     {
       std::vector<std::string> cv;
       CharBlock *z = (CharBlock *)y;
-      cv = z->fetch_data();
-      for (int i=0; i < n; i++) 
-	cerr << cv[i] << endl;
+      z->write();
     }
     break;
   case 'T': 
     {
       std::vector<std::string> cv;
       TextBlock *z = (TextBlock *)y;
-      cv = z->fetch_data();
-      for (int i=0; i < n; i++) 
-	cerr << cv[i] << endl;
+      z->write();
+
     }
     break;
   }
