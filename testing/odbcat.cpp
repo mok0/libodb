@@ -24,7 +24,8 @@ int main (int argc, char **argv)
   X.get();
 
   if (argc == 2) {
-    return 0;
+    cout << "Usage: odbcat odbfile dbname\n";
+    return 1;
   }
 
   y = X.fetch(argv[2]);
@@ -39,34 +40,32 @@ int main (int argc, char **argv)
   switch (dbtyp) {
   case 'I': 
     {
-      std::vector<int> cv;
       IntBlock *z = (IntBlock *)y;
       z->write();
     }
     break;
   case 'R': 
     {
-      std::vector<float> cv;
       RealBlock *z = (RealBlock *)y;
       z->write();
     }
     break;
   case 'C': 
     {
-      std::vector<std::string> cv;
       CharBlock *z = (CharBlock *)y;
       z->write();
     }
     break;
   case 'T': 
     {
-      std::vector<std::string> cv;
       TextBlock *z = (TextBlock *)y;
       z->write();
 
     }
     break;
   }
+
+  return 0;
 }
 
 
