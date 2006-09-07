@@ -42,14 +42,12 @@ void ODatabase::dir(void)
   while (it != _db.end()) {
 
     cout.flush();
-    //    cout.setf(std::ios::left);
-    cout.width(25);
     cout << std::left;
+    cout.width(25);
     cout << it->first;
     cout.width(3);
     cout << it->second->get_type();
     cout << std::right;
-    //cout.setf(std::ios::right);
     cout.width(10);
     cout << it->second->size();
     cout.width(10);
@@ -75,8 +73,8 @@ void ODatabase::open(std::string path)
     _name = _path.substr(i); 	      // substring from i to eos
   else
     _name = path;
-  //cerr << "database open: " << _name << endl;
 }
+
 
 // Populate database from O format file
 void ODatabase::get() 
@@ -86,11 +84,16 @@ void ODatabase::get()
   void *vect, *data;
   OFile ofile;
 
-  ofile.open(_path);
+  if (!ofile.open(_path))
+    return;
+
+  cerr << "in odatabase::get\n";
 
   while (ofile.get_header(nam, typ, siz, fmt)) {
 
-    /* strip spaces off end of datablock name */
+    cout << nam << endl;
+
+    // strip spaces off end of datablock name 
     s = &nam[25];
     while (*s <= 32 && s > nam)
       *s-- = '\0';
@@ -190,6 +193,7 @@ void ODatabase::get()
 }
 
 ODatablock *ODatabase::fetch(std::string nam) {
+  
   return _db[nam];
 }
 

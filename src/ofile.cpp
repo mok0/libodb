@@ -105,16 +105,23 @@ OFile::OFile(std::string path) {
 // whether or not to swap bytes. Open file and save descriptor.
 
 bool OFile::open(std::string path) {
+
   _path = path;
-  if (binfil()) {
+  
+  switch (binfil()) {
+
+  case 1: 
     _binary = true;
-    //_file.open(_path.c_str(), std::ios::in | std::ios::binary | std::ios::nocreate);
     _file.open(_path.c_str(), std::ios::in | std::ios::binary);
-  } else {
+    break;
+
+  case 0:
     _binary = false;
     _file.open(_path.c_str(), std::ios::in);
-    //_file.open(_path.c_str(), std::ios::in | std::ios::nocreate);
-    // cerr << "file is formatted...\n";
+    break;
+
+  otherwise:
+    return false;
   }
 
   if (_file.fail()) return false;
@@ -149,33 +156,36 @@ OFile::~OFile (void)
 //  'false'. An O binary file normally has the byte pattern [0 0 0 036 .] in
 //  the first 5 bytes of the file.
 
-bool OFile::binfil(void)
+int OFile::binfil(void)
 {
   std::ifstream File;
   int n;
   char buf[8];
 
-  //File.open(_path.c_str(), std::ios::in | std::ios::binary | std::ios::nocreate);
   File.open(_path.c_str(), std::ios::in | std::ios::binary);
 
   if (File.fail()) {
     cerr << "binfil: could not open file\n";
-    return false;
+    return -1;
   }
 
   File.read((char *)buf, 8);
   File.close();
 
   if ((buf[0]&buf[1]&buf[2]) == 0 && buf[3] == 30 && buf[4] == '.') {
-    return 2;
+    // file has binary signature
+    return 1;
   }
   if ((buf[0]&buf[1]&buf[2]) == 0 && buf[3] == 30) {
     // The only binary O files that do _not_ have a '.' in the fifth byte
     // are the dgnl data files
-    return true;
+    return 1;
   }
-  return false;
+
+  // file is formatted
+  return 0;
 }
+
 
 void OFile::close(void)
 {
@@ -205,6 +215,13 @@ static void swap4 (char *buffer, int n)
 
 bool OFile::get_header(char *nam, char &typ, int &siz, char *fmt) 
 {
+
+
+  if (_file.fail()) {
+    cerr << "failed\n";
+    return false;
+  }
+
   if (_file.eof()) {
     cerr << "end of file reached\n";
     return false;

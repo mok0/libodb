@@ -5,6 +5,7 @@
 #ifndef _datablock_h
 #define _datablock_h
 
+#include <iostream>
 #include <vector>
 #include <string>
 
@@ -13,6 +14,8 @@
 
 
 // An O "character" variable is 5 bytes.
+// TODO! Overload the [] operator!
+
 typedef struct ochar {
   char c[6];
 } ochar;
@@ -39,13 +42,16 @@ public:
     return;
   };
 
+  virtual char *get_name() { return _name; };
   virtual char get_type() { return _type; };
   virtual int size () = 0; 
   virtual int capacity () = 0; 
   virtual int get_byte_size () = 0; 
+  virtual void write () = 0;
+
 };
 
-// OBS! Jeg skal overloade [] operatoren!
+// Class describing an integer datablock
 
 class IntBlock : public ODatablock {
 
@@ -86,9 +92,19 @@ public:
   // return the data
   std::vector<int> &fetch_data() { return _data; }
 
+
+  // write the datablock to stdout
+  void write()
+    {
+      std::cout << _name << " " << _type << " " << _size << "(i10)" << std::endl;
+      for (int i=0; i < _size; i++) {
+	std::cout << _data[i] << std::endl;
+      }
+    }
 };
 
-// Real datablock
+
+// Class describing a real datablock
 
 class RealBlock : public ODatablock {
 
@@ -128,7 +144,21 @@ public:
 
   // return the data
   std::vector<float> &fetch_data() { return _data; }
+
+  // write the datablock to stdout
+  void write()
+    {
+      std::cout << _name << " " << _type << " " << _size << "(f10.0)" << std::endl;
+      for (int i=0; i < _size; i++) {
+	std::cout << _data[i] << std::endl;
+      }
+    }
+
 };
+
+
+// Class describing a char datablock. In O,
+// these are arrays of character*6.
 
 class CharBlock : public ODatablock {
 
@@ -169,8 +199,20 @@ public:
 
   // return the data
   std::vector<std::string> &fetch_data() { return _data; }
+
+  // write the datablock to stdout
+  void write()
+    {
+      std::cout << _name << " " << _type << " " << _size << "(a6)" << std::endl;
+      for (int i=0; i < _size; i++) {
+	std::cout << _data[i] << std::endl;
+      }
+    }
+
 };
 
+
+// Class describing a text datablock.
 
 class TextBlock : public ODatablock {
 
@@ -198,8 +240,20 @@ public:
     return s;
   }
 
+
+  // return the max length of any element
+  int maxlength() {
+    int curmax = 0;
+    for (int i=0; i < _size; i++) {
+      curmax = ( curmax > _data[i].length() )? curmax : _data[i].length();
+    }
+    return curmax;
+  }
+
+
   // return allocated size (number of elements)
   int capacity()   {return _data.capacity();}
+
 
   // return the size in bytes of this block
   int get_byte_size () { 
@@ -212,6 +266,16 @@ public:
 
   // return the data
   std::vector<std::string> &fetch_data() { return _data; }
+
+  // write the datablock to stdout
+  void write()
+    {
+      std::cout << _name << " " << _type << " " << _size << " " 
+		<< this->maxlength() << std::endl;
+      for (int i=0; i < _size; i++) {
+	std::cout << _data[i] << std::endl;
+      }
+    }
 };
 
 #endif

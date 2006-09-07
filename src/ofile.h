@@ -20,7 +20,7 @@ class OFile {
   bool _binary;					  // true if file is binary
   bool _swap;				          // true if bytes must be swapped
   std::ifstream _file;				  // file descriptor 
-  bool binfil(void);
+  int binfil(void);
 
  public:
   OFile( void );				  // constructor
