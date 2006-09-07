@@ -1,14 +1,12 @@
 //   -*- mode: c++; mode: font-lock; fill-column: 75; comment-column: 50; -*-
-// $Id:$ 
+// $Id$ 
 //
 
 #include <iostream>
 #include <vector>
 #include "odb.h"
 
-using std::cout;
-using std::endl;
-using std::cerr;
+using namespace std;
 
 int main (int argc, char **argv) 
 {
@@ -16,19 +14,29 @@ int main (int argc, char **argv)
   ODatablock *y;
   int n;
 
+  cout << argc << endl;
+
+  if (argc < 2) {
+    cerr << "Usage: " << argv[0] << " odbfile dbname\n";
+    return 1;
+  }
+
   // X.open("binary.o");
-  X.open(argv[1]);
+  X.open(string(argv[1]));
   X.get();
   X.dir();					  // print directory
-  //cout << "size of database " << X.size() << endl;
+
+  if (argc == 2) {
+    return 0;
+  }
 
   y = X.fetch(argv[2]);
   if (!y) {
     cerr << "datablock not found" << endl;
-    exit (1);
+    return 1;
   }
   cerr << "========================================================\n";
-
+  
   n =  y->size();
   cerr << "size of datablock: " << n << endl;
   cerr << "... in bytes: " << sizeof (*y) << endl;
@@ -74,8 +82,4 @@ int main (int argc, char **argv)
 }
 
 
- /*
-   Local Variables:
-   mode: font-lock
-   End:
-*/
+////
