@@ -216,7 +216,6 @@ static void swap4 (char *buffer, int n)
 bool OFile::get_header(char *nam, char &typ, int &siz, char *fmt) 
 {
 
-
   if (_file.fail()) {
     cerr << "failed\n";
     return false;
@@ -229,7 +228,6 @@ bool OFile::get_header(char *nam, char &typ, int &siz, char *fmt)
 
   if (_binary) {
     int n, j;
-    //    long rl1, rl2;
     int rl1, rl2;
 
     _file.read ((char *)&rl1, sizeof(int));

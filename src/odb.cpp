@@ -43,7 +43,7 @@ void ODatabase::dir(void)
 
     cout.flush();
     cout << std::left;
-    cout.width(25);
+    cout.width(27);
     cout << it->first;
     cout.width(3);
     cout << it->second->get_type();
@@ -87,16 +87,13 @@ void ODatabase::get()
   if (!ofile.open(_path))
     return;
 
-  cerr << "in odatabase::get\n";
-
   while (ofile.get_header(nam, typ, siz, fmt)) {
 
-    cout << nam << endl;
-
     // strip spaces off end of datablock name 
-    s = &nam[25];
+    s = &nam[ODB_DBNAME_SIZE - 2];
     while (*s <= 32 && s > nam)
       *s-- = '\0';
+    nam[ODB_DBNAME_SIZE-1] = '\0';
 
     switch(typ) {
 

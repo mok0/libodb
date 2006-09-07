@@ -148,7 +148,7 @@ public:
   // write the datablock to stdout
   void write()
     {
-      std::cout << _name << " " << _type << " " << _size << "(f10.0)" << std::endl;
+      std::cout << _name << " " << _type << " " << _size << " (f10.0)" << std::endl;
       for (int i=0; i < _size; i++) {
 	std::cout << _data[i] << std::endl;
       }
