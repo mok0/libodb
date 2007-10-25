@@ -2,8 +2,7 @@
 ## $Id$
 
 AM_CPPFLAGS = -I$(top_srcdir)/src
-#AM_LDFLAGS = -static $(top_srcdir)/src/libodb.la
-AM_LDFLAGS = $(top_srcdir)/src/libodb.la
+AM_LDFLAGS = $(top_builddir)/src/libodb.la
 
 bin_PROGRAMS = odbdir odbcat
 

@@ -1,12 +1,15 @@
-2006-03-22  Morten Kjeldgaard  <mok@aggemam.stofanet.dk>
+2007-10-25  Morten Kjeldgaard  <mok@bioxray.dk>
+
+	*  Bumped version to 1.0.2
+	*  Added README file in config/. 
+	*  Now uses $top_builddir variable in testing/Makefile.am
+
+2006-03-22  Morten Kjeldgaard  <mok@bioxray.dk>
 
 	* First version
-
-<!--
 	
 Local variables:
 mode: change-log
 mode: font-lock
 End:
-	
--->
+
