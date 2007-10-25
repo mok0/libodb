@@ -7,6 +7,7 @@
 
 #include "ofile.h"
 #include <iostream>
+#include <cassert>
 
 using std::cerr;
 

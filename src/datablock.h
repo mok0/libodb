@@ -8,6 +8,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <cassert>
 
 // Length of parameter block names
 #define ODB_DBNAME_SIZE 26

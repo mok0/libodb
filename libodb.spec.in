@@ -16,7 +16,8 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-buildroot/
 
 %description
 
-A library to handle O data files, binary or formatted.
+MOK's C++ library to read and write O format files files, binary or
+formatted.  The header files are currently the only documentation.
 
 %prep
 %setup -q
@@ -35,12 +36,17 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,bin,bin)
+%{_bindir}/odbcat
+%{_bindir}/odbdir
 %{_includedir}/odb/
 %{_libdir}/libodb.a
 %{_libdir}/libodb.la
 %{_libdir}/libodb.so.0.0.0
 
 %changelog
+* Thu Sep  7 2006 Morten Kjeldgaard <mok@ghost.bioxray.dk> - @VERSION@
+- Fixed a couple of bugs, and added two jiffies: odbcat and odbdir
+
 * Wed Mar 22 2006 Morten Kjeldgaard <mok@ghost.bioxray.dk> - 1.0
 - First packaged
 

@@ -3,6 +3,12 @@
 	*  Bumped version to 1.0.2
 	*  Added README file in config/. 
 	*  Now uses $top_builddir variable in testing/Makefile.am
+	*  Fixed compilation problems in Ubuntu 7.10, need to include <cassert>.
+	
+2006-09-07  Morten Kjeldgaard  <mok@ghost.bioxray.dk>
+
+	* libodb.spec.in (BuildRoot): Fixed a couple of bugs, and added 
+	two jiffies, odbcat and odbdir. 
 
 2006-03-22  Morten Kjeldgaard  <mok@bioxray.dk>
 
