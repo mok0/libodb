@@ -11,7 +11,7 @@ DIST_SUBDIRS = $(SUBDIRS)
 
 pkgconfigdir = $(libdir)/config
 
-EXTRA_DIST = bootstrap libodb.spec
+EXTRA_DIST = bootstrap libodb.spec libodb.info COPYING AUTHORS
 
 ####
 

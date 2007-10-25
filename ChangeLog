@@ -3,16 +3,20 @@
 	*  Bumped version to 1.0.2
 	*  Added README file in config/. 
 	*  Now uses $top_builddir variable in testing/Makefile.am
+	*  Add fink .info file
 	*  Fixed compilation problems in Ubuntu 7.10, need to include <cassert>.
+	*  .spec file updated, package now split in devel files and shared
+	*  library.
+	*  Add GPL3 clause to all source files.
 	
 2006-09-07  Morten Kjeldgaard  <mok@ghost.bioxray.dk>
 
 	* libodb.spec.in (BuildRoot): Fixed a couple of bugs, and added 
-	two jiffies, odbcat and odbdir. 
+	  two jiffies, odbcat and odbdir. 
 
 2006-03-22  Morten Kjeldgaard  <mok@bioxray.dk>
 
-	* First version
+	* First version of rpm package.
 	
 Local variables:
 mode: change-log

@@ -1,9 +1,21 @@
-//   -*- mode: c++; mode: font-lock; fill-column: 75; comment-column: 50; -*-
-//
-// $Id: ofile.cpp,v 1.4 2003/06/04 08:39:14 mok Exp $
-//
-// Define member functions for the Ofile class that deals with files
-// in O format, either formatted or binary.  Morten Kjeldgaard, 20-Apr-2003.
+/*
+    Define member functions for the Ofile class that deals with files
+    in O format, either formatted or binary. 
+    Copyright (C) 2003-2007 Morten Kjeldgaard
+
+    This program is free software: you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public License
+    as published by the Free Software Foundation, either version 3 of
+    the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #include "ofile.h"
 #include <iostream>
@@ -152,10 +164,10 @@ OFile::~OFile (void)
   _file.close();
 }
 
-//  binfil -- a private class member. Attempt to open file and read in
-//  the first eight bytes. Return 'true' if fnam is a binary O file, else
-//  'false'. An O binary file normally has the byte pattern [0 0 0 036 .] in
-//  the first 5 bytes of the file.
+///  binfil -- a private class member. Attempt to open file and read in
+///  the first eight bytes. Return 'true' if fnam is a binary O file, else
+///  'false'. An O binary file normally has the byte pattern [0 0 0 036 .] in
+///  the first 5 bytes of the file.
 
 int OFile::binfil(void)
 {
@@ -523,4 +535,9 @@ bool OFile::get_textblock(char *text, int &size)
   return true;
 }
 
-////
+// Local variables:
+// mode: c++
+// mode: font-lock
+// fill-column: 75
+// comment-column: 50
+// End:

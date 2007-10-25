@@ -30,6 +30,7 @@ AC_CHECK_FUNCS([memset strtol])
 AC_CONFIG_FILES([
 	Makefile
 	libodb.spec
+	libodb.info
 	src/Makefile
 	testing/Makefile
 	])
