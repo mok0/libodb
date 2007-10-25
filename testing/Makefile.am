@@ -4,9 +4,9 @@
 AM_CPPFLAGS = -I$(top_srcdir)/src
 AM_LDFLAGS = $(top_builddir)/src/libodb.la
 
-bin_PROGRAMS = odbdir odbcat
+#bin_PROGRAMS = odbdir odbcat
 
-noinst_PROGRAMS = fix_residue_pointers testodb2
+noinst_PROGRAMS = fix_residue_pointers testodb2 odbdir odbcat
 
 fix_residue_pointers_SOURCES = fix_residue_pointers.cpp
 

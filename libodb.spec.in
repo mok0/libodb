@@ -15,6 +15,7 @@ libodb is a C++ library to read and write O format files files, binary or
 formatted. 
 
 %package -n libodb-devel
+Summary: Library to handle O files -- development environment
 Requires: libodb0 = %version-%release
 Group: Science/Crystallography/Development
 
@@ -23,6 +24,7 @@ libodb is a C++ library to read and write O format files files, binary
 or formatted. This package contains the headers and certain libraries.
 
 %package -n libodb0
+Summary: Library to handle O files -- sharede library
 Group: Science/Crystallography/Libraries
 
 %description -n libodb0
@@ -47,6 +49,7 @@ rm -rf %{buildroot}
 [ -n "%{buildroot}" -a "%{buildroot}" != / ] && rm -rf -- "%{buildroot}"
 
 %files -n libodb-devel
+%defattr(-,root,root)
 %doc AUTHORS COPYING README
 %{_includedir}/odb/
 %{_libdir}/libodb.a
@@ -54,6 +57,7 @@ rm -rf %{buildroot}
 %{_libdir}/libodb.so
 
 %files -n libodb0
+%defattr(-,root,root)
 %doc AUTHORS COPYING README
 %{_libdir}/libodb.so.0.0.0
 %{_libdir}/libodb.so.0
