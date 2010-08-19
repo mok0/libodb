@@ -11,9 +11,6 @@ using namespace std;
 int main (int argc, char **argv) 
 {
   ODatabase X;
-  ODatablock *y;
-  int n;
-  char dbtyp;
 
   if (argc < 2) {
     cerr << "Usage: " << argv[0] << " odbfile" << endl;

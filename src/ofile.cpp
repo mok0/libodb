@@ -135,7 +135,7 @@ bool OFile::open(std::string path) {
     _file.open(_path.c_str(), std::ios::in);
     break;
 
-  otherwise:
+  default:
     return false;
   }
 
@@ -174,7 +174,6 @@ OFile::~OFile (void)
 int OFile::binfil(void)
 {
   std::ifstream File;
-  int n;
   char buf[8];
 
   File.open(_path.c_str(), std::ios::in | std::ios::binary);
@@ -242,7 +241,7 @@ bool OFile::get_header(char *nam, char &typ, int &siz, char *fmt)
   }
 
   if (_binary) {
-    int n, j;
+    int n;
     int rl1, rl2;
 
     _file.read ((char *)&rl1, sizeof(int));
@@ -322,7 +321,6 @@ bool OFile::get_header(char *nam, char &typ, int &siz, char *fmt)
 bool OFile::get_intblock(int *istore, int size) 
 {
   if (_binary) {
-    int n;
     int rl1, rl2;
 
     _file.read ((char *)&rl1, sizeof(int));  
@@ -365,7 +363,6 @@ bool OFile::get_intblock(int *istore, int size)
 bool OFile::get_realblock(float *rstore, int size) 
 {
   if (_binary) {
-    int n;
     int rl1, rl2;
 
     _file.read ((char *)&rl1, sizeof(int));  
@@ -406,7 +403,6 @@ bool OFile::get_realblock(float *rstore, int size)
 bool OFile::get_charblock(char *cstore, int size, char *fmt)
 {
   if (_binary) {
-    int n;
     int rl1, rl2;
 
     _file.read ((char *)&rl1, sizeof(int));  
@@ -429,7 +425,7 @@ bool OFile::get_charblock(char *cstore, int size, char *fmt)
   } else {
 
     // Formatted input
-    char c, *a, *t, *s;
+    char c=0, *a, *t, *s;
     int i, eol, inword;
 
     t = parse_format(fmt);
@@ -493,7 +489,6 @@ bool OFile::get_charblock(char *cstore, int size, char *fmt)
 bool OFile::get_textblock(char *text, int &size) 
 {
   if (_binary) {
-    int n;
     int rl1, rl2;
 
     _file.read ((char *)&rl1, sizeof(int));  
@@ -521,7 +516,7 @@ bool OFile::get_textblock(char *text, int &size)
 
     // formatted text block...
 
-    char *ch, buf[256];
+    char buf[256];
     int j, n;
 
     j = 0;
