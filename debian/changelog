@@ -1,0 +1,18 @@
+libodb (1.0.3-0ubuntu~ppa1) UNRELEASED; urgency=low
+
+  * Packaging moved to my git repo. Compilation issues fixed.
+
+ -- Morten Kjeldgaard <mok0@ubuntu.com>  Thu, 19 Aug 2010 16:30:04 +0200
+
+libodb (1.0.2-0ubuntu~ppa2) hardy; urgency=low
+
+  * debian/control: add homepage field, bump standards version.
+
+ -- Morten Kjeldgaard <mok@bioxray.au.dk>  Tue, 04 Mar 2008 13:52:10 +0100
+
+libodb (1.0.2-0ubuntu~ppa1) gutsy; urgency=low
+
+  * Initial release 
+
+ -- Morten Kjeldgaard <mok@bioxray.dk>  Tue, 11 Sep 2007 13:09:20 +0200
+

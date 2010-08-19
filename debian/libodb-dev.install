@@ -1,0 +1,4 @@
+debian/tmp/usr/include/odb
+debian/tmp/usr/lib/libodb.a
+debian/tmp/usr/lib/libodb.so
+debian/tmp/usr/lib/libodb.la
