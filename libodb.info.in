@@ -1,0 +1,48 @@
+Package: libodb
+Version: @VERSION@
+Revision: 1
+Description: Library to read O datablock files.
+License: GPL
+Maintainer: Morten Kjeldgaard <mok@bioxray.dk>
+Homepage: http://www.bioxray.dk/~mok
+Source: ftp://ftp.bioxray.dk/mok/src/%n-%v.tar.gz
+Source-MD5: bd32649990d4f205003f4cac8e14414c
+NoSourceDirectory: false
+DescDetail: <<
+Library to read O datablock files. Reads both formatted and binary
+datablock files.
+Author: Morten Kjeldgaard
+<<
+DocFiles: README AUTHORS COPYING
+CompileScript: <<
+  ./configure --prefix=%p
+  make
+<<
+InstallScript: <<
+  make install DESTDIR=%d
+<<
+SplitOff: <<
+  Package: %N-shlibs
+  Files: <<
+	lib/libodb.0.dylib 
+	lib/libodb.0.0.0.dylib
+  <<
+  Shlibs: <<
+	%p/lib/libodb.0.dylib 0.0.0 %n (>= @VERSION@-1)
+	%p/lib/libodb.0.0.0.dylib 0.0.0 %n (>= @VERSION@-1)
+  <<
+<<
+SplitOff2: <<
+Package: %N-dev
+BuildDependsOnly: True
+ Files: <<   
+  lib/libodb.a
+  lib/libodb.la
+  lib/libodb.dylib  
+  include/odb/*.h
+ <<
+  Shlibs: <<
+	%p/lib/libodb.dylib 0.0.0 %n (>= @VERSION@-1)
+  <<
+<<
+####
