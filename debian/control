@@ -1,6 +1,6 @@
 Source: libodb
 Priority: extra
-Maintainer: Morten Kjeldgaard <mok@bioxray.au.dk>
+Maintainer: Morten Kjeldgaard <mok0@ubuntu.com>
 Homepage: http://www.bioxray.au.dk/~mok/libodb.php
 Build-Depends: debhelper (>= 5), autotools-dev, cdbs
 Standards-Version: 3.7.3
