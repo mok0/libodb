@@ -96,7 +96,6 @@ void ODatabase::get()
 {
   char nam[ODB_DBNAME_SIZE], fmt[ODB_FMTSIZ], typ, *s;
   int siz;
-  void *vect, *data;
   OFile ofile;
 
   if (!ofile.open(_path))
