@@ -20,6 +20,8 @@
 #include "ofile.h"
 #include <iostream>
 #include <cassert>
+#include <cstring> // to support various string functions
+#include <cstdlib> // to support strtol etc.
 
 using std::cerr;
 

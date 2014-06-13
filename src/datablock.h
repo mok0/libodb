@@ -22,6 +22,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <cstring> // to define memcpy
 #include <cassert>
 
 // Length of parameter block names

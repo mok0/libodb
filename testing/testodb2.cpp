@@ -1,6 +1,6 @@
 //   -*- mode: c++; mode: font-lock; fill-column: 75; comment-column: 50; -*-
 //
-// $Id$
+// $Id: testodb2.cpp 4 2006-03-22 20:43:21Z mok $
 
 #include <iostream>
 #include <cstdlib>

@@ -11,6 +11,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cstdlib> // for exit()
 
 using std::cout;
 using std::cerr;

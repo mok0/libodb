@@ -1,5 +1,5 @@
 //   -*- mode: c++; mode: font-lock; fill-column: 75; comment-column: 50; -*-
-// $Id$ 
+// $Id: odbdir.cpp 11 2006-09-07 13:48:13Z mok $ 
 //
 
 #include <iostream>

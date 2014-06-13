@@ -1,5 +1,5 @@
 ## -*- mode: Makefile ; mode: font-lock -*-
-## $Id$
+## $Id: Makefile.am 17 2007-10-25 18:18:49Z mok $
 
 AM_CPPFLAGS = -I$(top_srcdir)/src
 AM_LDFLAGS = $(top_builddir)/src/libodb.la

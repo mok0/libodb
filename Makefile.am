@@ -4,7 +4,7 @@
 # Build in these directories
 SUBDIRS = src testing
 
-ACLOCAL_AMFLAGS = -I config
+ACLOCAL_AMFLAGS = -I m4
 
 #Distribute these directories:
 DIST_SUBDIRS = $(SUBDIRS)

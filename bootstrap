@@ -1,2 +1,2 @@
 #! /bin/sh
-aclocal -I config && libtoolize --force --copy && automake --foreign --add-missing && autoconf
+aclocal -I m4 && automake --foreign --add-missing && libtoolize --force --copy && autoconf
