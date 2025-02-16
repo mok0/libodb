@@ -9,7 +9,7 @@
 
 using namespace std;
 
-main ()
+int main ()
 {
   char nam[26], typ, fmt[ODB_FMTSIZ];
   int siz;

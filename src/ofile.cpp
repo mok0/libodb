@@ -1,6 +1,6 @@
 /*
     Define member functions for the Ofile class that deals with files
-    in O format, either formatted or binary. 
+    in O format, either formatted or binary.
     Copyright (C) 2003-2007 Morten Kjeldgaard
 
     This program is free software: you can redistribute it and/or
@@ -28,7 +28,7 @@ using std::cerr;
 /*
   A simple parser for the fortran formats that the type C datablocks
   are stored in. Generate a string describing the format, so the
-  program knows what to expect in the file. The function knows that 
+  program knows what to expect in the file. The function knows that
   type C variables are 6 bytes always. Examples:
 
   (2a)         -> 123456123456
@@ -42,23 +42,23 @@ using std::cerr;
 
 static char *parse_format(char *fmt)
 {
-  register int i;
+  int i;
   char *result, *f, *r, *t;
   int mult = 0;
 
   result = new char[RSIZ];
   memset (result, 0, RSIZ);
-  
+
   f = fmt;
   r = result;
-  
+
   while (*f) {
     switch (*f) {
     case '(':
       t = parse_format(++f);
       if (mult == 0) mult = 1;
       for (i=0; i < mult; i++)
-	strncat(result, t, RSIZ);
+	strncat(result, t, RSIZ-1);
       delete [] t;
       return result;
       break;
@@ -122,10 +122,10 @@ OFile::OFile(std::string path) {
 bool OFile::open(std::string path) {
 
   _path = path;
-  
+
   switch (binfil()) {
 
-  case 1: 
+  case 1:
     _binary = true;
     _file.open(_path.c_str(), std::ios::in | std::ios::binary);
     break;
@@ -151,7 +151,7 @@ bool OFile::open(std::string path) {
   i.byte[3]= 1;
 
   if (i.ui == 1) {
-    _swap = false; 
+    _swap = false;
   }
   else {
     _swap = true;
@@ -217,7 +217,7 @@ static void swap4 (char *buffer, int n)
     buffer[i+3] = j;
     j = buffer[i+1];
     buffer[i+1] = buffer[i+2];
-    buffer[i+2] =j; 
+    buffer[i+2] =j;
   }
 }
 
@@ -227,7 +227,7 @@ static void swap4 (char *buffer, int n)
 
 /// Read the datablock header.
 
-bool OFile::get_header(char *nam, char &typ, int &siz, char *fmt) 
+bool OFile::get_header(char *nam, char &typ, int &siz, char *fmt)
 {
 
   if (_file.fail()) {
@@ -296,7 +296,7 @@ bool OFile::get_header(char *nam, char &typ, int &siz, char *fmt)
     while (isspace(buf[i]))			  // step forward to size
       i++;
     cp = num;
-    while (!isspace(buf[i]))			  // copy size 
+    while (!isspace(buf[i]))			  // copy size
       *cp++ = buf[i++];
     siz = (int)strtol(num, &stat, 10);		  // decode size
     if (*stat) {
@@ -318,19 +318,19 @@ bool OFile::get_header(char *nam, char &typ, int &siz, char *fmt)
 ///  Read 'size' integers from the binary fortran file. Swap bytes if
 ///  necessary, file is always in big-endian order.
 
-bool OFile::get_intblock(int *istore, int size) 
+bool OFile::get_intblock(int *istore, int size)
 {
   if (_binary) {
     int rl1, rl2;
 
-    _file.read ((char *)&rl1, sizeof(int));  
+    _file.read ((char *)&rl1, sizeof(int));
     if (_file.fail()) {
       return -1;
     }
     if (_swap) swap4 ((char *)&rl1, 1);
     _file.read ((char *)istore, rl1);
     if (_swap) swap4 ((char *)istore, size);
-    _file.read ((char *)&rl2, sizeof(int));  
+    _file.read ((char *)&rl2, sizeof(int));
     if (_swap) swap4 ((char *)&rl2, 1);
 
     assert (rl1 == rl2);
@@ -347,10 +347,10 @@ bool OFile::get_intblock(int *istore, int size)
 
     for (int i=0; i<size; i++) {
       _file >> buf;
-      istore[i] = (int)strtol(buf, &stat, 10); 
+      istore[i] = (int)strtol(buf, &stat, 10);
       if (*stat) {
 	cerr <<  "non-digits in datablock\n";
-	return false; 
+	return false;
       }
     }
   }
@@ -360,19 +360,19 @@ bool OFile::get_intblock(int *istore, int size)
 ///   Read 'size' floats from the binary fortran file. Swap bytes if
 ///   necessary, file is always in big-endian order.
 
-bool OFile::get_realblock(float *rstore, int size) 
+bool OFile::get_realblock(float *rstore, int size)
 {
   if (_binary) {
     int rl1, rl2;
 
-    _file.read ((char *)&rl1, sizeof(int));  
+    _file.read ((char *)&rl1, sizeof(int));
     if (_file.fail()) {
       return -1;
     }
     if (_swap) swap4 ((char *)&rl1, 1);
     _file.read ((char *)rstore, rl1);
     if (_swap) swap4 ((char *)rstore, size);
-    _file.read ((char *)&rl2, sizeof(int));  
+    _file.read ((char *)&rl2, sizeof(int));
     if (_swap) swap4 ((char *)&rl2, 1);
 
     assert (rl1 == rl2);
@@ -385,13 +385,13 @@ bool OFile::get_realblock(float *rstore, int size)
 
     // formatted file...
     char buf[64], *stat;
-    
+
     for (int i=0; i<size; i++) {
       _file >> buf;
-      rstore[i] = (float)strtod(buf, &stat); 
+      rstore[i] = (float)strtod(buf, &stat);
       if (*stat) {
 	cerr <<  "non-digits in datablock\n";
-	return false; 
+	return false;
       }
     }
   }
@@ -405,13 +405,13 @@ bool OFile::get_charblock(char *cstore, int size, char *fmt)
   if (_binary) {
     int rl1, rl2;
 
-    _file.read ((char *)&rl1, sizeof(int));  
+    _file.read ((char *)&rl1, sizeof(int));
     if (_file.fail()){
       return false;
     }
     if (_swap) swap4 ((char *)&rl1, 1);
     _file.read (cstore, rl1);
-    _file.read ((char *)&rl2, sizeof(int));  
+    _file.read ((char *)&rl2, sizeof(int));
     if (_swap) swap4 ((char *)&rl2, 1);
 
     assert (rl1 == rl2);
@@ -431,7 +431,7 @@ bool OFile::get_charblock(char *cstore, int size, char *fmt)
     t = parse_format(fmt);
     s = t;
     a = cstore;
-  
+
     i = 0;
     eol = 0;
 
@@ -441,7 +441,7 @@ bool OFile::get_charblock(char *cstore, int size, char *fmt)
 	eol = 0;
 	while (_file.get() != '\n')
 	  ;
-      }	      
+      }
 
       inword = 1;
       while (inword) {
@@ -486,18 +486,18 @@ bool OFile::get_charblock(char *cstore, int size, char *fmt)
 /// is different in binary format, where 'size' is the number of bytes,
 /// or formatted, where 'size' is the number of lines...
 
-bool OFile::get_textblock(char *text, int &size) 
+bool OFile::get_textblock(char *text, int &size)
 {
   if (_binary) {
     int rl1, rl2;
 
-    _file.read ((char *)&rl1, sizeof(int));  
+    _file.read ((char *)&rl1, sizeof(int));
     if (_file.fail()) {
       return false;
     }
     if (_swap) swap4 ((char *)&rl1, 1);
     _file.read (text, rl1);
-    _file.read ((char *)&rl2, sizeof(int));  
+    _file.read ((char *)&rl2, sizeof(int));
     if (_swap) swap4 ((char *)&rl2, 1);
 
     assert (rl1 == rl2);

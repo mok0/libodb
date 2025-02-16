@@ -2,19 +2,22 @@
 #
 # Process this file with autoconf to produce a configure script.
 
-AC_PREREQ(2.59)
-AC_INIT(libodb, 1.0.3, mok@bioxray.dk)
+AC_PREREQ([2.71])
+AC_INIT([libodb],[1.1.0],[mortenkjeldgaard@gmail.com])
 AC_CONFIG_SRCDIR([src/ofile.cpp])
-AC_CONFIG_MACRO_DIR([m4])
 
-##AC_CONFIG_HEADER([config.h])
+## Put autotools' auxilliary files in a subdir
+AC_CONFIG_AUX_DIR([config])
+AC_CONFIG_MACRO_DIRS([m4])
 
-AM_INIT_AUTOMAKE
+## Enable automake
+AM_INIT_AUTOMAKE([-Wall -Werror foreign])
+AM_PROG_AR
 
 # Checks for programs.
 AC_PROG_CXX
 AC_PROG_CC
-AC_PROG_LIBTOOL
+LT_INIT
 
 # Checks for libraries.
 
@@ -24,8 +27,9 @@ AC_PROG_LIBTOOL
 AC_HEADER_STDBOOL
 AC_C_CONST
 
-# Checks for library functions.
-AC_HEADER_STDC
+AC_CHECK_INCLUDES_DEFAULT
+AC_PROG_EGREP
+
 AC_FUNC_STRTOD
 AC_CHECK_FUNCS([memset strtol])
 
